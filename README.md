@@ -26,16 +26,16 @@ $dependencies = array(
     	echo sprintf(
     		"INSERT INTO USERS " .
     			"(name, email, md5_password) VALUES " .
-    			"(%s, %s, %s);\n",
-    		"'" . mysql_escape_string($name) . "'",
-    		"'" . mysql_escape_string($emailAddr) . "'",
-    		"'" . mysql_escape_string($md5Password) . "'"
+    			"('%s', '%s', '%s');\n",
+    		mysql_escape_string($name),
+    		mysql_escape_string($emailAddr),
+    		mysql_escape_string($md5Password)
 		);
     	echo "=========================\n\n";
 		// Would be an Id if a real implementation
 		return time();
     }
-);                                          
+);
 
 $registerUser = function($hashPassword, $emailSender, $storeInDatabase, $name, $emailAddr, $plainPassword) {
 	$id = $storeInDatabase($name, $emailAddr, $hashPassword($plainPassword));
