@@ -52,5 +52,17 @@ class PHCurryDiTest extends PHPUnit_Framework_TestCase
     	);
     }
     
+    public function testWithTooFewArguments()
+    {
+    	$calculator = function($w, $h, $l) {
+			return $w . ' * ' . $h . ' * ' . $l . ' = ' . ($w * $h * $l);
+		};
+		$dependencies = array('w' => 2);
+    	$this->assertEquals(
+    		'2 * 3 *  = 0', // multiplied by null (0) is 0
+    		call_user_func(phcurrydi($calculator, $dependencies), 3)
+    	);
+    }
+    
 }
 ?>

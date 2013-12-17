@@ -37,13 +37,16 @@ function PHCurryDI($func, $dependencies) {
 			$resultArguments[] = 
 				(array_key_exists($argumentInforation[$i], $dependencies)) ?
 					$dependencies[$argumentInforation[$i]] :
-					$callArguments[$callArgumentsPos++];
+					(
+						$callArgumentsPos < sizeof($callArguments) ?
+							$callArguments[$callArgumentsPos++] :
+							null
+					);
 		}
 		
 		while ($callArgumentsPos < sizeof($callArguments)) {
 			$resultArguments[] = $callArguments[$callArgumentsPos++];
 		}
-		
 		return $resultArguments;
 	};
 	
